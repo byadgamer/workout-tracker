@@ -1,1 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gym Tracker</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f0f0f;
+    --surface: #181818;
+    --surface2: #222222;
+    --border: #2a2a2a;
+    --text: #e8e8e8;
+    --muted: #666;
+    --push: #e85d3a;
+    --pull: #3a8fe8;
+    --legs: #3ae87a;
+    --other: #a87ae8;
+    --accent: #e8c23a;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    min-height: 100vh;
+  }
+
+  header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+
+  .header-stats {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .header-stat {
+    text-align: right;
+  }
+
+  .header-stat .val {
+    font-family: 'Space Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .header-stat .lbl {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 2px;
+  }
+
+  .main {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    height: calc(100vh - 61px);
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 1.25rem;
+  }
+
+  .sidebar-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    padding-left: 4px;
+  }
+
+  .session-card {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    background: var(--surface);
+  }
+
+  .session-card:hover { border-color: #444; background: var(--surface2); }
+  .session-card.active { border-color: var(--accent); background: var(--surface2); }
+
+  .session-card .s-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .session-card .s-type {
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-Push { background: var(--push); }
+  .dot-Pull { background: var(--pull); }
+  .dot-Legs { background: var(--legs); }
+  .dot-Other { background: var(--other); }
+
+  .session-card .s-exercises {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* CONTENT */
+  .content {
+    overflow-y: auto;
+    padding: 1.5rem 2rem;
+  }
+
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+  }
+
+  .tab {
+    padding: 0.6rem 1.25rem;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* SESSION DETAIL */
+  .session-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  .session-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .type-badge {
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--surface2);
+  }
+
+  .badge-Push { color: var(--push); border: 1px solid var(--push); }
+  .badge-Pull { color: var(--pull); border: 1px solid var(--pull); }
+  .badge-Legs { color: var(--legs); border: 1px solid var(--legs); }
+  .badge-Other { color: var(--other); border: 1px solid var(--other); }
+
+  .muscle-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .muscle-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .exercise-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    padding: 0.75rem;
+    background: var(--surface);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .ex-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    padding-top: 2px;
+  }
+
+  .ex-notes {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  .sets-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .set-chip {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .notes-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-top: 1rem;
+  }
+
+  .notes-box .notes-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .notes-box p {
+    font-size: 13px;
+    color: #bbb;
+    line-height: 1.6;
+  }
+
+  .reminders-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid #e85d3a;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-top: 0.75rem;
+  }
+
+  .reminders-box .notes-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #e85d3a;
+    margin-bottom: 0.5rem;
+  }
+
+  .reminders-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .reminders-box li {
+    font-size: 13px;
+    color: #bbb;
+    padding: 2px 0;
+  }
+
+  .reminders-box li::before {
+    content: "→ ";
+    color: #e85d3a;
+  }
+
+  /* PROGRESS TAB */
+  .ex-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1.5rem;
+  }
+
+  .ex-btn {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .ex-btn:hover { color: var(--text); border-color: #444; }
+  .ex-btn.active { border-color: var(--accent); color: var(--accent); background: var(--surface2); }
+
+  .chart-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    position: relative;
+    height: 300px;
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: var(--muted);
+    font-size: 13px;
+    gap: 8px;
+  }
+
+  .empty-state .big { font-size: 32px; }
+
+  /* CALENDAR TAB */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 1.5rem;
+  }
+
+  .cal-day-name {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 4px 0;
+    letter-spacing: 0.05em;
+  }
+
+  .cal-day {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+    cursor: default;
+    border: 1px solid transparent;
+  }
+
+  .cal-day.empty { opacity: 0; }
+  .cal-day.has-session { cursor: pointer; border-color: var(--border); }
+  .cal-day.has-session:hover { border-color: #444; }
+  .cal-day.workout-Push { background: rgba(232,93,58,0.15); color: var(--push); }
+  .cal-day.workout-Pull { background: rgba(58,143,232,0.15); color: var(--pull); }
+  .cal-day.workout-Legs { background: rgba(58,232,122,0.15); color: var(--legs); }
+  .cal-day.workout-Other { background: rgba(168,122,232,0.15); color: var(--other); }
+  .cal-day.no-workout { color: #333; }
+
+  .cal-month-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .legend {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">// WORKOUT TRACKER</div>
+  <div class="header-stats">
+    <div class="header-stat">
+      <div class="val" id="stat-sessions">0</div>
+      <div class="lbl">Sessions</div>
+    </div>
+    <div class="header-stat">
+      <div class="val" id="stat-streak">0</div>
+      <div class="lbl">This month</div>
+    </div>
+    <div class="header-stat">
+      <div class="val" id="stat-last">—</div>
+      <div class="lbl">Last workout</div>
+    </div>
+  </div>
+</header>
+
+<div class="main">
+  <aside class="sidebar">
+    <div class="sidebar-title">Sessions</div>
+    <div id="session-list"></div>
+  </aside>
+
+  <div class="content">
+    <div class="tab-bar">
+      <button class="tab active" onclick="switchTab('log')">Log</button>
+      <button class="tab" onclick="switchTab('progress')">Progress</button>
+      <button class="tab" onclick="switchTab('calendar')">Calendar</button>
+    </div>
+
+    <div id="tab-log"></div>
+    <div id="tab-progress" style="display:none"></div>
+    <div id="tab-calendar" style="display:none"></div>
+  </div>
+</div>
+
+<script>
+const DATA_URL = 'data.json';
+let allSessions = [];
+let activeIndex = 0;
+let activeTab = 'log';
+let progressChart = null;
+let selectedExercise = null;
+
+async function loadData() {
+  try {
+    const r = await fetch(DATA_URL + '?t=' + Date.now());
+    const d = await r.json();
+    allSessions = (d.sessions || []).sort((a,b) => new Date(b.date) - new Date(a.date));
+    init();
+  } catch(e) {
+    document.getElementById('tab-log').innerHTML = '<div class="empty-state"><div class="big">⚠</div><div>Could not load data.json</div></div>';
+  }
+}
+
+function init() {
+  updateHeaderStats();
+  renderSidebar();
+  selectSession(0);
+  renderCalendar();
+  renderProgressExerciseList();
+}
+
+function updateHeaderStats() {
+  document.getElementById('stat-sessions').textContent = allSessions.length;
+  const now = new Date();
+  const thisMonth = allSessions.filter(s => {
+    const d = new Date(s.date);
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  }).length;
+  document.getElementById('stat-streak').textContent = thisMonth;
+  if (allSessions.length > 0) {
+    const last = new Date(allSessions[0].date);
+    const diff = Math.floor((now - last) / 86400000);
+    document.getElementById('stat-last').textContent = diff === 0 ? 'today' : diff === 1 ? '1d ago' : diff + 'd ago';
+  }
+}
+
+function renderSidebar() {
+  const el = document.getElementById('session-list');
+  el.innerHTML = allSessions.map((s, i) => {
+    const exNames = s.exercises.slice(0,3).map(e => e.name).join(', ');
+    const more = s.exercises.length > 3 ? ` +${s.exercises.length - 3}` : '';
+    return `<div class="session-card${i===activeIndex?' active':''}" onclick="selectSession(${i})">
+      <div class="s-date">${formatDate(s.date)}</div>
+      <div class="s-type"><span class="dot dot-${s.session_type}"></span>${s.session_type} Day</div>
+      <div class="s-exercises">${exNames}${more}</div>
+    </div>`;
+  }).join('');
+}
+
+function selectSession(i) {
+  activeIndex = i;
+  renderSidebar();
+  renderLog();
+}
+
+function renderLog() {
+  const s = allSessions[activeIndex];
+  if (!s) return;
+
+  const groups = {};
+  s.exercises.forEach(ex => {
+    if (!groups[ex.muscle_group]) groups[ex.muscle_group] = [];
+    groups[ex.muscle_group].push(ex);
+  });
+
+  let html = `<div class="session-header">
+    <div>
+      <div class="session-title">
+        ${formatDate(s.date)}
+        <span class="type-badge badge-${s.session_type}">${s.session_type}</span>
+      </div>
+    </div>
+  </div>`;
+
+  Object.entries(groups).forEach(([group, exs]) => {
+    html += `<div class="muscle-group">
+      <div class="muscle-label">${group}</div>`;
+    exs.forEach(ex => {
+      const chips = ex.sets.map((set,i) => `<span class="set-chip">S${i+1}: ${set.weight} × ${set.reps}</span>`).join('');
+      html += `<div class="exercise-row">
+        <div>
+          <div class="ex-name">${ex.name}</div>
+          ${ex.notes ? `<div class="ex-notes">${ex.notes}</div>` : ''}
+        </div>
+        <div class="sets-row">${chips}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+
+  if (s.session_notes) {
+    html += `<div class="notes-box">
+      <div class="notes-label">Session notes</div>
+      <p>${s.session_notes}</p>
+    </div>`;
+  }
+
+  if (s.reminders && s.reminders.length > 0) {
+    html += `<div class="reminders-box">
+      <div class="notes-label">Reminders for next session</div>
+      <ul>${s.reminders.map(r => `<li>${r}</li>`).join('')}</ul>
+    </div>`;
+  }
+
+  document.getElementById('tab-log').innerHTML = html;
+}
+
+function renderProgressExerciseList() {
+  const exerciseMap = {};
+  allSessions.forEach(s => {
+    s.exercises.forEach(ex => {
+      if (!exerciseMap[ex.name]) exerciseMap[ex.name] = ex.muscle_group;
+    });
+  });
+
+  const byGroup = {};
+  Object.entries(exerciseMap).forEach(([name, group]) => {
+    if (!byGroup[group]) byGroup[group] = [];
+    byGroup[group].push(name);
+  });
+
+  let html = `<div class="ex-selector">`;
+  Object.entries(byGroup).forEach(([group, names]) => {
+    names.forEach(name => {
+      const active = selectedExercise === name ? ' active' : '';
+      html += `<button class="ex-btn${active}" onclick="selectExercise('${name.replace(/'/g,"\\'")}')"> ${name}</button>`;
+    });
+  });
+  html += `</div><div class="chart-wrap"><canvas id="progressChart"></canvas></div>`;
+
+  if (!selectedExercise && Object.keys(exerciseMap).length > 0) {
+    selectedExercise = Object.keys(exerciseMap)[0];
+  }
+
+  document.getElementById('tab-progress').innerHTML = html;
+  if (selectedExercise) renderChart();
+}
+
+function selectExercise(name) {
+  selectedExercise = name;
+  renderProgressExerciseList();
+}
+
+function renderChart() {
+  const points = [];
+  [...allSessions].reverse().forEach(s => {
+    const ex = s.exercises.find(e => e.name === selectedExercise);
+    if (ex && ex.sets.length > 0) {
+      const maxW = Math.max(...ex.sets.map(s => s.weight));
+      points.push({ x: s.date, y: maxW });
+    }
+  });
+
+  const ctx = document.getElementById('progressChart');
+  if (!ctx) return;
+  if (progressChart) progressChart.destroy();
+
+  progressChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: points.map(p => p.x),
+      datasets: [{
+        label: 'Max weight',
+        data: points.map(p => p.y),
+        borderColor: '#e8c23a',
+        backgroundColor: 'rgba(232,194,58,0.08)',
+        pointBackgroundColor: '#e8c23a',
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        tension: 0.3,
+        fill: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#222',
+          borderColor: '#333',
+          borderWidth: 1,
+          titleColor: '#e8c23a',
+          bodyColor: '#e8e8e8',
+          callbacks: {
+            label: ctx => `Max weight: ${ctx.parsed.y}`
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { color: '#666', font: { family: 'Space Mono', size: 11 } }, grid: { color: '#1e1e1e' } },
+        y: { ticks: { color: '#666', font: { family: 'Space Mono', size: 11 } }, grid: { color: '#1e1e1e' } }
+      }
+    }
+  });
+}
+
+function renderCalendar() {
+  const sessionByDate = {};
+  allSessions.forEach(s => { sessionByDate[s.date] = s.session_type; });
+
+  const now = new Date();
+  const months = [];
+  for (let m = -2; m <= 0; m++) {
+    const d = new Date(now.getFullYear(), now.getMonth() + m, 1);
+    months.push(d);
+  }
+
+  let html = `<div class="legend">
+    <div class="legend-item"><span class="dot dot-Push"></span>Push</div>
+    <div class="legend-item"><span class="dot dot-Pull"></span>Pull</div>
+    <div class="legend-item"><span class="dot dot-Legs"></span>Legs</div>
+    <div class="legend-item"><span class="dot dot-Other"></span>Other</div>
+  </div>`;
+
+  months.forEach(monthStart => {
+    const yr = monthStart.getFullYear();
+    const mo = monthStart.getMonth();
+    const label = monthStart.toLocaleString('default', { month: 'long', year: 'numeric' });
+    const daysInMonth = new Date(yr, mo + 1, 0).getDate();
+    const firstDay = new Date(yr, mo, 1).getDay();
+
+    html += `<div class="cal-month-label">${label}</div>
+    <div class="calendar-grid">
+      <div class="cal-day-name">Su</div><div class="cal-day-name">Mo</div><div class="cal-day-name">Tu</div>
+      <div class="cal-day-name">We</div><div class="cal-day-name">Th</div><div class="cal-day-name">Fr</div>
+      <div class="cal-day-name">Sa</div>`;
+
+    for (let i = 0; i < firstDay; i++) html += `<div class="cal-day empty"></div>`;
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateStr = `${yr}-${String(mo+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const type = sessionByDate[dateStr];
+      if (type) {
+        html += `<div class="cal-day has-session workout-${type}" title="${type} Day" onclick="goToSession('${dateStr}')">${d}</div>`;
+      } else {
+        html += `<div class="cal-day no-workout">${d}</div>`;
+      }
+    }
+    html += `</div>`;
+  });
+
+  document.getElementById('tab-calendar').innerHTML = html;
+}
+
+function goToSession(dateStr) {
+  const idx = allSessions.findIndex(s => s.date === dateStr);
+  if (idx !== -1) {
+    selectSession(idx);
+    switchTab('log');
+  }
+}
+
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab')[['log','progress','calendar'].indexOf(tab)].classList.add('active');
+  document.getElementById('tab-log').style.display = tab === 'log' ? '' : 'none';
+  document.getElementById('tab-progress').style.display = tab === 'progress' ? '' : 'none';
+  document.getElementById('tab-calendar').style.display = tab === 'calendar' ? '' : 'none';
+  if (tab === 'progress') renderProgressExerciseList();
+}
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+loadData();
+</script>
+</body>
+</html>
