@@ -8,29 +8,56 @@
           "name": "Incline Dumbbell Bench Press",
           "muscle_group": "Chest",
           "sets": [
-            { "weight": 10, "reps": 10 },
-            { "weight": 15, "reps": 10 },
-            { "weight": 15, "reps": 8 }
+            {
+              "weight": 10,
+              "reps": 10
+            },
+            {
+              "weight": 15,
+              "reps": 10
+            },
+            {
+              "weight": 15,
+              "reps": 8
+            }
           ],
-          "notes": "Second and third sets included partial reps. 15 kg is currently very challenging."
+          "notes": "15 kg is near limit. Second and third sets had partial reps."
         },
         {
           "name": "Pec Deck Fly",
           "muscle_group": "Chest",
           "sets": [
-            { "weight": 8, "reps": 10 },
-            { "weight": 10, "reps": 10 },
-            { "weight": 10, "reps": 10 }
+            {
+              "weight": 8,
+              "reps": 10
+            },
+            {
+              "weight": 10,
+              "reps": 10
+            },
+            {
+              "weight": 10,
+              "reps": 10
+            }
           ],
-          "notes": "Form broke down on last two sets due to heavy weight."
+          "notes": "Form broke down on last two sets \u2014 weight too heavy."
         },
         {
           "name": "High-to-Low Cable Fly",
           "muscle_group": "Chest",
           "sets": [
-            { "weight": 3, "reps": 12 },
-            { "weight": 3, "reps": 12 },
-            { "weight": 3, "reps": 12 }
+            {
+              "weight": 3,
+              "reps": 12
+            },
+            {
+              "weight": 3,
+              "reps": 12
+            },
+            {
+              "weight": 3,
+              "reps": 12
+            }
           ],
           "notes": "Cable stack number."
         },
@@ -38,20 +65,41 @@
           "name": "Smith Machine Shoulder Press",
           "muscle_group": "Shoulders",
           "sets": [
-            { "weight": 5, "reps": 12 },
-            { "weight": 7.5, "reps": 6 },
-            { "weight": 7.5, "reps": 5 },
-            { "weight": 5, "reps": 5 }
+            {
+              "weight": 5,
+              "reps": 12
+            },
+            {
+              "weight": 7.5,
+              "reps": 6
+            },
+            {
+              "weight": 7.5,
+              "reps": 5
+            },
+            {
+              "weight": 5,
+              "reps": 5
+            }
           ],
-          "notes": "Weight is per side. Final set was a drop set. Bar weight not counted."
+          "notes": "Weight per side. Bar not counted. Last set was a drop set."
         },
         {
           "name": "Single-Arm Cable Lateral Raise",
           "muscle_group": "Shoulders",
           "sets": [
-            { "weight": 2, "reps": 15 },
-            { "weight": 2, "reps": 15 },
-            { "weight": 2, "reps": 15 }
+            {
+              "weight": 2,
+              "reps": 15
+            },
+            {
+              "weight": 2,
+              "reps": 15
+            },
+            {
+              "weight": 2,
+              "reps": 15
+            }
           ],
           "notes": "Cable stack number."
         },
@@ -59,25 +107,581 @@
           "name": "Rope Pushdown",
           "muscle_group": "Triceps",
           "sets": [
-            { "weight": 8, "reps": 12 },
-            { "weight": 8, "reps": 12 },
-            { "weight": 8, "reps": 12 }
+            {
+              "weight": 8,
+              "reps": 12
+            },
+            {
+              "weight": 8,
+              "reps": 12
+            },
+            {
+              "weight": 8,
+              "reps": 12
+            }
           ],
           "notes": ""
         },
         {
-          "name": "Overhead Cable Triceps Extension",
+          "name": "Cable Overhead Tricep Extension",
           "muscle_group": "Triceps",
           "sets": [
-            { "weight": 5, "reps": 12 },
-            { "weight": 5, "reps": 12 }
+            {
+              "weight": 5,
+              "reps": 12
+            },
+            {
+              "weight": 5,
+              "reps": 12
+            }
           ],
           "notes": "Reps estimated."
         }
       ],
-      "session_notes": "Did not feel particularly productive. Incline 15 kg remains difficult, leading to partial reps. Pec deck form deteriorated due to excessive weight.",
-      "reminders": [],
-      "body_stats": { "weight_kg": null, "note": "" }
+      "cardio": [],
+      "session_notes": "Didn't feel particularly productive. Session 1 baseline. About 17 working sets total.",
+      "reminders": [
+        "Track exact reps going forward instead of estimates"
+      ],
+      "body_stats": {
+        "weight_kg": 71.8,
+        "note": "Progress photos taken \u2014 front, side, back"
+      }
+    },
+    {
+      "date": "2026-06-23",
+      "session_type": "Pull",
+      "exercises": [
+        {
+          "name": "Pull-Up",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 1
+            },
+            {
+              "weight": 0,
+              "reps": 1
+            },
+            {
+              "weight": 0,
+              "reps": 1
+            },
+            {
+              "weight": 0,
+              "reps": 1
+            },
+            {
+              "weight": 0,
+              "reps": 1
+            }
+          ],
+          "notes": "Warm-up skill work. 1\u20132 clean reps max. Used slow negatives and top holds. ~5\u20136 total reps with rest between."
+        },
+        {
+          "name": "Close-Grip Lat Pulldown",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 5,
+              "reps": 12
+            },
+            {
+              "weight": 6,
+              "reps": 12
+            },
+            {
+              "weight": 7,
+              "reps": 12
+            }
+          ],
+          "notes": "Didn't feel lats much."
+        },
+        {
+          "name": "Seated Row (Medium Grip)",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 6,
+              "reps": 12
+            },
+            {
+              "weight": 6,
+              "reps": 12
+            },
+            {
+              "weight": 7,
+              "reps": 12
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Lat Pulldown (Shoulder-Width Grip)",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 6,
+              "reps": 12
+            },
+            {
+              "weight": 7,
+              "reps": 12
+            },
+            {
+              "weight": 7,
+              "reps": 12
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Dumbbell Curl",
+          "muscle_group": "Biceps",
+          "sets": [
+            {
+              "weight": 3,
+              "reps": 10
+            },
+            {
+              "weight": 4,
+              "reps": 10
+            },
+            {
+              "weight": 3,
+              "reps": 10
+            }
+          ],
+          "notes": "Not tracked precisely. Alternating 3\u20134 kg. Execution poor. Left arm noticeably weaker."
+        },
+        {
+          "name": "Rope Hammer Curl",
+          "muscle_group": "Biceps",
+          "sets": [
+            {
+              "weight": 5,
+              "reps": 12
+            },
+            {
+              "weight": 5,
+              "reps": 12
+            },
+            {
+              "weight": 5,
+              "reps": 12
+            }
+          ],
+          "notes": "Better pump than curls. Weight approx 5\u20136, logged as 5."
+        },
+        {
+          "name": "Preacher Curl",
+          "muscle_group": "Biceps",
+          "sets": [
+            {
+              "weight": 4,
+              "reps": 12
+            },
+            {
+              "weight": 4,
+              "reps": 12
+            },
+            {
+              "weight": 5,
+              "reps": 7
+            }
+          ],
+          "notes": "Last set ~6\u20138 reps."
+        },
+        {
+          "name": "Hyperextension with Dumbbell Row",
+          "muscle_group": "Lower Back",
+          "sets": [
+            {
+              "weight": 7.5,
+              "reps": 10
+            },
+            {
+              "weight": 7.5,
+              "reps": 12
+            },
+            {
+              "weight": 10,
+              "reps": 12
+            }
+          ],
+          "notes": "Held dumbbells, added row at top. Didn't hit mid/upper back much."
+        }
+      ],
+      "cardio": [],
+      "session_notes": "Didn't feel focused on back. Good bicep pump but didn't feel powerful. Left arm weaker \u2014 muscle imbalance noted. Pull-up practice ongoing.",
+      "reminders": [
+        "Focus on mind-muscle connection for lats",
+        "Fix left arm imbalance on curls"
+      ],
+      "body_stats": {
+        "weight_kg": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-06-26",
+      "session_type": "Push",
+      "exercises": [
+        {
+          "name": "Flat Dumbbell Bench Press",
+          "muscle_group": "Chest",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 8
+            },
+            {
+              "weight": 15,
+              "reps": 12
+            },
+            {
+              "weight": 15,
+              "reps": 12
+            }
+          ],
+          "notes": "Better than last push session. Felt chest activation. Last set slightly off."
+        },
+        {
+          "name": "Pec Deck Fly",
+          "muscle_group": "Chest",
+          "sets": [
+            {
+              "weight": 8,
+              "reps": 10
+            },
+            {
+              "weight": 9,
+              "reps": 10
+            },
+            {
+              "weight": 9,
+              "reps": 10
+            }
+          ],
+          "notes": "Dropped from weight 10 to 9 for better form. Good call."
+        },
+        {
+          "name": "High-to-Low Cable Fly",
+          "muscle_group": "Chest",
+          "sets": [
+            {
+              "weight": 3,
+              "reps": 10
+            },
+            {
+              "weight": 3,
+              "reps": 10
+            },
+            {
+              "weight": 3,
+              "reps": 10
+            }
+          ],
+          "notes": "Didn't feel target muscle. Consider swapping next session."
+        },
+        {
+          "name": "Smith Machine Shoulder Press",
+          "muscle_group": "Shoulders",
+          "sets": [
+            {
+              "weight": 7.5,
+              "reps": 10
+            },
+            {
+              "weight": 7.5,
+              "reps": 10
+            }
+          ],
+          "notes": "Felt side delts more than front. Weight per side, bar not counted."
+        },
+        {
+          "name": "Dumbbell Shoulder Press",
+          "muscle_group": "Shoulders",
+          "sets": [
+            {
+              "weight": 7.5,
+              "reps": 10
+            }
+          ],
+          "notes": "Final set switching from Smith to dumbbells."
+        },
+        {
+          "name": "Single-Arm Cable Lateral Raise",
+          "muscle_group": "Shoulders",
+          "sets": [
+            {
+              "weight": 2,
+              "reps": 15
+            },
+            {
+              "weight": 2,
+              "reps": 15
+            },
+            {
+              "weight": 3,
+              "reps": 8
+            }
+          ],
+          "notes": "Last set: weight 3 \u00d7 8, then dropped to weight 2 \u00d7 7 (drop set)."
+        },
+        {
+          "name": "Cable Overhead Tricep Extension",
+          "muscle_group": "Triceps",
+          "sets": [
+            {
+              "weight": 5,
+              "reps": 12
+            },
+            {
+              "weight": 6,
+              "reps": 12
+            },
+            {
+              "weight": 7,
+              "reps": 12
+            }
+          ],
+          "notes": "Progression from weight 5 to 7 \u2014 good improvement."
+        },
+        {
+          "name": "Single-Arm Cable Kickback",
+          "muscle_group": "Triceps",
+          "sets": [
+            {
+              "weight": 3,
+              "reps": 8
+            },
+            {
+              "weight": 3,
+              "reps": 8
+            }
+          ],
+          "notes": "Per arm."
+        }
+      ],
+      "cardio": [
+        {
+          "type": "Treadmill",
+          "duration_min": 10,
+          "distance_km": null,
+          "speed": 4,
+          "incline": 12,
+          "notes": "Incline walk at end of session."
+        }
+      ],
+      "session_notes": "Better session than 22 June push. More confidence. 15 kg flat press for 12 clean reps is an improvement. Overhead tricep extension progressed to weight 7.",
+      "reminders": [
+        "Consider replacing cable fly if no muscle activation next session"
+      ],
+      "body_stats": {
+        "weight_kg": null,
+        "note": ""
+      }
+    },
+    {
+      "date": "2026-06-27",
+      "session_type": "Pull",
+      "exercises": [
+        {
+          "name": "Pull-Up",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 2
+            }
+          ],
+          "notes": "2 bodyweight reps in the morning before gym."
+        },
+        {
+          "name": "Rack Pull",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 25,
+              "reps": 12
+            },
+            {
+              "weight": 27.5,
+              "reps": 12
+            },
+            {
+              "weight": 30,
+              "reps": 10
+            }
+          ],
+          "notes": "Good progression. Using actual kg on this machine."
+        },
+        {
+          "name": "Underhand-Grip Lat Pulldown",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 6,
+              "reps": 12
+            },
+            {
+              "weight": 7,
+              "reps": 10
+            },
+            {
+              "weight": 8,
+              "reps": 8
+            }
+          ],
+          "notes": "Good progression across sets."
+        },
+        {
+          "name": "Close-Grip Seated Row",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 5,
+              "reps": 12
+            },
+            {
+              "weight": 5,
+              "reps": 10
+            },
+            {
+              "weight": 6,
+              "reps": 10
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Wide-Grip Row",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 5,
+              "reps": 10
+            },
+            {
+              "weight": 6,
+              "reps": 10
+            },
+            {
+              "weight": 6,
+              "reps": 10
+            }
+          ],
+          "notes": "Hit traps more than upper back. Didn't enjoy. Try different elbow path next time before removing."
+        },
+        {
+          "name": "Incline Dumbbell Curl",
+          "muscle_group": "Biceps",
+          "sets": [
+            {
+              "weight": 7.5,
+              "reps": 8
+            },
+            {
+              "weight": 7.5,
+              "reps": 10
+            },
+            {
+              "weight": 7.5,
+              "reps": 10
+            }
+          ],
+          "notes": "Better than previous session. More structured."
+        },
+        {
+          "name": "Hammer Curl",
+          "muscle_group": "Biceps",
+          "sets": [
+            {
+              "weight": 7.5,
+              "reps": 10
+            },
+            {
+              "weight": 7.5,
+              "reps": 10
+            },
+            {
+              "weight": 7.5,
+              "reps": 10
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Preacher Curl",
+          "muscle_group": "Biceps",
+          "sets": [
+            {
+              "weight": 5,
+              "reps": 8
+            }
+          ],
+          "notes": "Single set only."
+        },
+        {
+          "name": "Rear Delt Fly",
+          "muscle_group": "Shoulders",
+          "sets": [
+            {
+              "weight": 6,
+              "reps": 12
+            },
+            {
+              "weight": 8,
+              "reps": 12
+            },
+            {
+              "weight": 8,
+              "reps": 12
+            }
+          ],
+          "notes": "Good addition for rear delts."
+        },
+        {
+          "name": "Hyperextension",
+          "muscle_group": "Lower Back",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 10
+            },
+            {
+              "weight": 10,
+              "reps": 10
+            }
+          ],
+          "notes": "With 10 kg plate."
+        }
+      ],
+      "cardio": [],
+      "session_notes": "Felt unstructured, rated 5/10. But numbers don't match the negative feeling \u2014 lat pulldown progressed, curls more consistent, added rear delts. Mind-muscle connection was the issue not strength.",
+      "reminders": [
+        "Try wide-grip rows with different elbow path before removing",
+        "Rate workout out of 10 each session"
+      ],
+      "body_stats": {
+        "weight_kg": 71.8,
+        "note": ""
+      }
     }
-  ]
+  ],
+  "weight_entries": [
+    {
+      "date": "2026-06-22",
+      "value": 71.8,
+      "note": "Progress photos taken"
+    },
+    {
+      "date": "2026-06-27",
+      "value": 71.8,
+      "note": ""
+    }
+  ],
+  "protein_entries": []
 }
