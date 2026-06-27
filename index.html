@@ -286,7 +286,6 @@ header{padding:0.75rem 1rem;border-bottom:1px solid var(--border);display:flex;a
 
 <script>
 // ── EXERCISE GROUPING: base name → variants map ──
-// key = display group name, values = substrings to match
 const EX_GROUPS = {
   'Lat Pulldown': ['lat pulldown','pulldown'],
   'Row': ['row'],
@@ -315,7 +314,7 @@ function getGroup(exName){
   for(const [g,keys] of Object.entries(EX_GROUPS)){
     if(keys.some(k=>n.includes(k)))return g;
   }
-  return exName; // no group = its own group
+  return exName;
 }
 
 // ── STATE ──
@@ -324,7 +323,6 @@ let activeMuscle='',activeExGroup='',activeVariant='',exRange=10;
 const charts={};
 let weightData=[],proteinData=[];
 
-// Pull-up special: show max reps per session not weight
 function isPullUp(name){return /pull.?up|chin.?up/i.test(name);}
 function isBodyweight(name){return isPullUp(name);}
 
@@ -379,9 +377,10 @@ function renderSidebar(){
     const ri=allS.indexOf(s),sel=ri===activeI?`sel-${s.session_type}`:'';
     const ex=(s.exercises||[]);
     const exStr=ex.slice(0,3).map(e=>e.name).join(', ')+(ex.length>3?` +${ex.length-3}`:'');
-    const ratingHtml=s.rating!=null?`<span style="font-family:'Space Mono',monospace;font-size:11px;color:${s.rating>=8?'var(--cyan)':s.rating>=6?'var(--yellow)':'var(--pink)'};font-weight:700">${s.rating}/10</span>`:'';
+    // Added rating next to date as plain text number
+    const ratingHtml=s.rating!=null?`<span style="margin-left:8px;font-weight:600;">${s.rating}/10</span>`:'';
     return `<div class="sc ${sel}" onclick="selectS(${ri})">
-      <div style="display:flex;justify-content:space-between;align-items:center"><div class="sc-date">${fmt(s.date)}</div>${ratingHtml}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center"><div class="sc-date">${fmt(s.date)}${ratingHtml}</div></div>
       <div class="sc-type"><span class="dot dot-${s.session_type}"></span><span class="col-${s.session_type}">${s.session_type}</span></div>
       <div class="sc-ex">${exStr||s.session_notes?.substring(0,40)||''}</div>
     </div>`;
@@ -389,7 +388,12 @@ function renderSidebar(){
   document.getElementById('sl-list').innerHTML=html;
   document.getElementById('mob-sl-list').innerHTML=html.replace(/onclick="selectS\(/g,'onclick="selectSMob(');
 }
-function selectS(i){activeI=i;renderSidebar();if(activeTab==='log')renderLog();}
+// selectS explicitely changes view to the log tab
+function selectS(i){
+  activeI=i;
+  renderSidebar();
+  switchTab('log');
+}
 function selectSMob(i){selectS(i);closeMobSess();}
 function openMobSess(){document.getElementById('mob-sess').style.display='';}
 function closeMobSess(){document.getElementById('mob-sess').style.display='none';}
@@ -413,7 +417,6 @@ function renderLog(){
   <div class="sess-hdr">
     <div class="sess-date-big">${fmt(s.date)}</div>
     <span class="badge badge-${s.session_type}">${s.session_type}</span>
-    ${s.rating!=null?`<span style="font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:${s.rating>=8?'var(--cyan)':s.rating>=6?'var(--yellow)':'var(--pink)'};text-shadow:${s.rating>=8?'var(--gc)':s.rating>=6?'var(--gy)':'var(--gp)'}">${s.rating}/10</span>`:''}
   </div>`;
   if(s.session_type==='Cardio'){
     h+=`<div class="nbox"><div class="nl">Cardio session</div><p>${s.session_notes||''}</p></div>`;
@@ -440,27 +443,35 @@ function jumpDate(){
 function buildMuscleMap(){
   const m={};
   allS.forEach(s=>(s.exercises||[]).forEach(ex=>{
-    if(!m[ex.muscle_group])m[ex.muscle_group]={};
+    // Map any core related tags strictly to 'Core' tab
+    let mg = ex.muscle_group;
+    if(mg === 'Abs' || mg === 'Lower Back' || mg.toLowerCase() === 'core') {
+      mg = 'Core';
+    }
+    if(!m[mg])m[mg]={};
+    
     const grp=getGroup(ex.name);
-    if(!m[ex.muscle_group][grp])m[ex.muscle_group][grp]={};
-    if(!m[ex.muscle_group][grp][ex.name])m[ex.muscle_group][grp][ex.name]=[];
-    m[ex.muscle_group][grp][ex.name].push({date:s.date,sets:ex.sets});
+    if(!m[mg][grp])m[mg][grp]={};
+    if(!m[mg][grp][ex.name])m[mg][grp][ex.name]=[];
+    m[mg][grp][ex.name].push({date:s.date,sets:ex.sets});
   }));
+  if(!m['Core'])m['Core']={};
   return m;
 }
 
 function renderProgress(){
   const mm=buildMuscleMap();
-  const order=['Chest','Back','Shoulders','Biceps','Triceps','Legs','Core','Abs','Lower Back'];
+  // Abs & Lower back replaced to just strictly have 'Core'
+  const order=['Chest','Back','Shoulders','Biceps','Triceps','Legs','Core'];
   const muscles=Object.keys(mm).sort((a,b)=>(order.indexOf(a)<0?99:order.indexOf(a))-(order.indexOf(b)<0?99:order.indexOf(b)));
-  if(!activeMuscle||!mm[activeMuscle]){activeMuscle=muscles[0]||'';}
+  
+  if(!activeMuscle||!mm[activeMuscle])activeMuscle=muscles[0]||'';
   const groups=mm[activeMuscle]||{};
   const groupNames=Object.keys(groups);
-  // auto-select first group+variant if nothing selected or current invalid
+
   if(!activeExGroup||!groups[activeExGroup]){
     activeExGroup=groupNames[0]||'';
-    const vars=activeExGroup&&groups[activeExGroup]?Object.keys(groups[activeExGroup]):[];
-    activeVariant=vars[0]||'';
+    activeVariant=activeExGroup&&groups[activeExGroup]?Object.keys(groups[activeExGroup])[0]||'':'';
   }
   if(activeExGroup&&groups[activeExGroup]&&(!activeVariant||!groups[activeExGroup][activeVariant])){
     activeVariant=Object.keys(groups[activeExGroup])[0]||'';
@@ -469,25 +480,28 @@ function renderProgress(){
   const muscleTabs=muscles.map(m=>`<button class="muscle-tab${m===activeMuscle?' active':''}" onclick="setMuscle('${esc(m)}')">${m}</button>`).join('');
 
   let exGroupHtml='';
-  groupNames.forEach(gn=>{
-    const vars=Object.keys(groups[gn]);
-    const isOpen=gn===activeExGroup;
-    const isSingle=vars.length===1;
-    exGroupHtml+=`<div class="ex-group">
-      <div class="ex-group-name" onclick="toggleExGroup('${esc(gn)}')">${gn}<span>${isOpen?'▲':'▼'}</span></div>
-      <div class="variant-list${isOpen?' open':''}" id="vl-${esc(gn)}">`;
-    vars.forEach(v=>{
-      const isActive=isOpen&&v===activeVariant;
-      exGroupHtml+=`<button class="variant-btn${isActive?' active':''}" onclick="setVariant('${esc(gn)}','${esc(v)}')">${isSingle?'All sessions':v}</button>`;
+  if(groupNames.length===0){
+    exGroupHtml=`<div style="font-size:13px;color:var(--muted);padding:0.5rem">No exercises logged yet for this muscle group.</div>`;
+  } else {
+    groupNames.forEach(gn=>{
+      const vars=Object.keys(groups[gn]);
+      const isOpen=gn===activeExGroup;
+      const isSingle=vars.length===1;
+      exGroupHtml+=`<div class="ex-group">
+        <div class="ex-group-name" onclick="openExGroup('${esc(gn)}')">${gn}<span>${isOpen?'▲':'▼'}</span></div>
+        <div class="variant-list${isOpen?' open':''}" id="vl-${esc(gn)}">`;
+      vars.forEach(v=>{
+        exGroupHtml+=`<button class="variant-btn${isOpen&&v===activeVariant?' active':''}" onclick="setVariant('${esc(gn)}','${esc(v)}')">${isSingle?'All sessions':v}</button>`;
+      });
+      exGroupHtml+=`</div></div>`;
     });
-    exGroupHtml+=`</div></div>`;
-  });
+  }
 
   const data=activeVariant&&activeExGroup&&groups[activeExGroup]?groups[activeExGroup][activeVariant]||[]:[];
   const sorted=[...data].sort((a,b)=>new Date(a.date)-new Date(b.date));
   const subset=sorted.slice(-exRange);
   const isPU=activeVariant&&isPullUp(activeVariant);
-  const chartTitle=isPU?`Max reps per session — ${activeVariant}`:`Max weight — ${activeVariant}`;
+  const chartTitle=isPU?`Max reps — ${activeVariant}`:`Max weight — ${activeVariant}`;
 
   let h=`<div class="prog-top">${muscleTabs}</div>
     <div style="display:flex;gap:12px;flex-wrap:wrap;">
@@ -500,33 +514,31 @@ function renderProgress(){
         </div>`;
   if(subset.length>0){
     h+=`<div class="chart-card"><div class="chart-card-title">${chartTitle}</div><div class="chart-wrap"><canvas id="wChart"></canvas></div></div>`;
-    if(!isPU){
-      h+=`<div class="chart-card"><div class="chart-card-title">Volume (sets × reps × weight) — ${activeVariant}</div><div class="chart-wrap"><canvas id="vChart"></canvas></div></div>`;
-    }
+    if(!isPU) h+=`<div class="chart-card"><div class="chart-card-title">Volume (sets × reps × weight) — ${activeVariant}</div><div class="chart-wrap"><canvas id="vChart"></canvas></div></div>`;
+  } else if(groupNames.length>0){
+    h+=`<div class="no-data">Select an exercise on the left</div>`;
   } else {
-    h+=`<div class="no-data">No data yet — select an exercise above</div>`;
+    h+=`<div class="no-data">No exercises logged for this muscle yet</div>`;
   }
   h+=`</div></div>`;
   document.getElementById('t-progress').innerHTML=h;
   if(subset.length>0)setTimeout(()=>{buildWChart(subset,isPU);if(!isPU)buildVChart(subset);},50);
 }
 
-function toggleExGroup(gn){
-  // if already open and clicking same group header — don't close, just keep open
-  if(activeExGroup!==gn){
-    activeExGroup=gn;
-    const mm=buildMuscleMap();
-    const vars=Object.keys((mm[activeMuscle]||{})[gn]||{});
-    activeVariant=vars[0]||'';
+// Toggles open/close properly when re-clicked so it doesn't just refresh
+function openExGroup(gn){
+  if (activeExGroup === gn) {
+    activeExGroup = '';
+    activeVariant = '';
+  } else {
+    activeExGroup = gn;
+    const mm = buildMuscleMap();
+    const vars = Object.keys((mm[activeMuscle]||{})[gn]||{});
+    if(!activeVariant || !vars.includes(activeVariant)) activeVariant = vars[0] || '';
   }
   renderProgress();
 }
-function setVariant(gn,v){
-  // always select the variant, never close
-  activeExGroup=gn;
-  activeVariant=v;
-  renderProgress();
-}
+function setVariant(gn,v){activeExGroup=gn;activeVariant=v;renderProgress();}
 function setMuscle(m){activeMuscle=m;activeExGroup='';activeVariant='';renderProgress();}
 function setRange(n){exRange=n;renderProgress();}
 
@@ -534,8 +546,8 @@ function buildWChart(pts,isPU){
   const ctx=document.getElementById('wChart');if(!ctx)return;
   if(charts.w)charts.w.destroy();
   const yData=isPU
-    ? pts.map(p=>Math.max(...p.sets.map(s=>s.reps)))  // max reps for pull-ups
-    : pts.map(p=>Math.max(...p.sets.map(s=>s.weight))); // max weight for others
+    ? pts.map(p=>Math.max(...p.sets.map(s=>s.reps))) 
+    : pts.map(p=>Math.max(...p.sets.map(s=>s.weight)));
   charts.w=new Chart(ctx,{type:'line',
     data:{labels:pts.map(p=>p.date),datasets:[{
       label:isPU?'Max reps':'Max weight',
@@ -743,9 +755,13 @@ function switchTab(t){
   activeTab=t;
   const tabs=['log','progress','calendar','cardio','weight','protein'];
   document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',tabs[i]===t));
-  tabs.forEach(x=>{document.getElementById('t-'+x).style.display=x===t?'':'none';});
-  document.getElementById('prev-bar').style.display=t==='log'?'':'none';
+  
+  // Make sure it effectively shows correct tabs
+  tabs.forEach(x=>{document.getElementById('t-'+x).style.display = x===t ? 'block' : 'none';});
+  document.getElementById('prev-bar').style.display = t==='log' ? 'flex' : 'none';
+  
   ['log','progress','calendar','cardio','weight','protein'].forEach(x=>{const mn=document.getElementById('mn-'+x);if(mn)mn.classList.toggle('active',x===t);});
+  
   if(t==='log')renderLog();
   if(t==='progress')renderProgress();
   if(t==='cardio')renderCardio();
