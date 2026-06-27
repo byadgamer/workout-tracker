@@ -1,1 +1,83 @@
-
+{
+  "sessions": [
+    {
+      "date": "2026-06-22",
+      "session_type": "Push",
+      "exercises": [
+        {
+          "name": "Incline Dumbbell Bench Press",
+          "muscle_group": "Chest",
+          "sets": [
+            { "weight": 10, "reps": 10 },
+            { "weight": 15, "reps": 10 },
+            { "weight": 15, "reps": 8 }
+          ],
+          "notes": "Second and third sets included partial reps. 15 kg is currently very challenging."
+        },
+        {
+          "name": "Pec Deck Fly",
+          "muscle_group": "Chest",
+          "sets": [
+            { "weight": 8, "reps": 10 },
+            { "weight": 10, "reps": 10 },
+            { "weight": 10, "reps": 10 }
+          ],
+          "notes": "Form broke down on last two sets due to heavy weight."
+        },
+        {
+          "name": "High-to-Low Cable Fly",
+          "muscle_group": "Chest",
+          "sets": [
+            { "weight": 3, "reps": 12 },
+            { "weight": 3, "reps": 12 },
+            { "weight": 3, "reps": 12 }
+          ],
+          "notes": "Cable stack number."
+        },
+        {
+          "name": "Smith Machine Shoulder Press",
+          "muscle_group": "Shoulders",
+          "sets": [
+            { "weight": 5, "reps": 12 },
+            { "weight": 7.5, "reps": 6 },
+            { "weight": 7.5, "reps": 5 },
+            { "weight": 5, "reps": 5 }
+          ],
+          "notes": "Weight is per side. Final set was a drop set. Bar weight not counted."
+        },
+        {
+          "name": "Single-Arm Cable Lateral Raise",
+          "muscle_group": "Shoulders",
+          "sets": [
+            { "weight": 2, "reps": 15 },
+            { "weight": 2, "reps": 15 },
+            { "weight": 2, "reps": 15 }
+          ],
+          "notes": "Cable stack number."
+        },
+        {
+          "name": "Rope Pushdown",
+          "muscle_group": "Triceps",
+          "sets": [
+            { "weight": 8, "reps": 12 },
+            { "weight": 8, "reps": 12 },
+            { "weight": 8, "reps": 12 }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Overhead Cable Triceps Extension",
+          "muscle_group": "Triceps",
+          "sets": [
+            { "weight": 5, "reps": 12 },
+            { "weight": 5, "reps": 12 }
+          ],
+          "notes": "Reps estimated."
+        }
+      ],
+      "session_notes": "Did not feel particularly productive. Incline 15 kg remains difficult, leading to partial reps. Pec deck form deteriorated due to excessive weight.",
+      "reminders": [],
+      "body_stats": { "weight_kg": null, "note": "" }
+    }
+  ]
+}
