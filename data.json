@@ -294,8 +294,8 @@
           "notes": "Last set ~6\u20138 reps."
         },
         {
-          "name": "Hyperextension with Dumbbell Row",
-          "muscle_group": "Lower Back",
+          "name": "Hyperextension",
+          "muscle_group": "Back",
           "sets": [
             {
               "weight": 7.5,
@@ -310,7 +310,7 @@
               "reps": 12
             }
           ],
-          "notes": "Held dumbbells, added row at top. Didn't hit mid/upper back much."
+          "notes": "With dumbbells/plate for weight."
         }
       ],
       "cardio": [],
@@ -645,7 +645,7 @@
         },
         {
           "name": "Hyperextension",
-          "muscle_group": "Lower Back",
+          "muscle_group": "Back",
           "sets": [
             {
               "weight": 10,
@@ -656,7 +656,7 @@
               "reps": 10
             }
           ],
-          "notes": "With 10 kg plate."
+          "notes": "With dumbbells/plate for weight."
         }
       ],
       "cardio": [],
