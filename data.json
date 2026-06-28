@@ -669,32 +669,6 @@
         "weight_kg": 71.8,
         "note": ""
       }
-    },
-    {
-      "date": "2026-01-01",
-      "session_type": "Push",
-      "rating": null,
-      "exercises": [
-        {
-          "name": "Test Exercise",
-          "muscle_group": "Chest",
-          "sets": [
-            {
-              "weight": 10,
-              "reps": 10
-            }
-          ],
-          "notes": ""
-        }
-      ],
-      "cardio": [],
-      "session_notes": "test session delete this",
-      "reminders": [],
-      "body_stats": {
-        "weight_kg": null,
-        "note": ""
-      },
-      "protein_g": null
     }
   ],
   "weight_entries": [
