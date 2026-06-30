@@ -669,6 +669,165 @@
         "weight_kg": 71.8,
         "note": ""
       }
+    },
+    {
+      "date": "2026-06-30",
+      "session_type": "Push",
+      "rating": 6,
+      "exercises": [
+        {
+          "name": "Flat Dumbbell Bench Press",
+          "muscle_group": "Chest",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 8
+            },
+            {
+              "weight": 15,
+              "reps": 12
+            },
+            {
+              "weight": 15,
+              "reps": 12
+            },
+            {
+              "weight": 15,
+              "reps": 12
+            }
+          ],
+          "notes": "Warm-up first set; left shoulder pain during working sets"
+        },
+        {
+          "name": "Dumbbell Shoulder Press",
+          "muscle_group": "Shoulders",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 10
+            },
+            {
+              "weight": 12.5,
+              "reps": 10
+            },
+            {
+              "weight": 12.5,
+              "reps": 10
+            }
+          ],
+          "notes": "Didn't feel front delts much"
+        },
+        {
+          "name": "Pec Deck",
+          "muscle_group": "Chest",
+          "sets": [
+            {
+              "weight": 9,
+              "reps": 12
+            },
+            {
+              "weight": 8,
+              "reps": 10
+            },
+            {
+              "weight": 8,
+              "reps": 8
+            }
+          ],
+          "notes": "Possibly posture issue; exercise felt off"
+        },
+        {
+          "name": "High-to-Low Cable Fly",
+          "muscle_group": "Chest",
+          "sets": [
+            {
+              "weight": 3,
+              "reps": 12
+            },
+            {
+              "weight": 4,
+              "reps": 8
+            },
+            {
+              "weight": 4,
+              "reps": 8
+            }
+          ],
+          "notes": "Poor chest activation; heavier weight felt unstable"
+        },
+        {
+          "name": "Single-Arm Cable Lateral Raise",
+          "muscle_group": "Shoulders",
+          "sets": [
+            {
+              "weight": 2,
+              "reps": 20
+            },
+            {
+              "weight": 3,
+              "reps": 8
+            },
+            {
+              "weight": 2,
+              "reps": 10
+            },
+            {
+              "weight": 3,
+              "reps": 10
+            }
+          ],
+          "notes": "Reps are per arm; reduced weight mid-second set"
+        },
+        {
+          "name": "Rope Pushdown",
+          "muscle_group": "Triceps",
+          "sets": [
+            {
+              "weight": 7,
+              "reps": 12
+            },
+            {
+              "weight": 8,
+              "reps": 12
+            },
+            {
+              "weight": 9,
+              "reps": 12
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Overhead Cable Triceps Extension",
+          "muscle_group": "Triceps",
+          "sets": [
+            {
+              "weight": 6,
+              "reps": 12
+            },
+            {
+              "weight": 7,
+              "reps": 12
+            },
+            {
+              "weight": 8,
+              "reps": 12
+            }
+          ],
+          "notes": ""
+        }
+      ],
+      "cardio": [],
+      "session_notes": "Bench strength improved, but left shoulder pain and reduced chest activation affected the overall quality of the session.",
+      "reminders": [
+        "Monitor left shoulder pain on pressing movements.",
+        "Check bench and pec deck setup/form before increasing weight."
+      ],
+      "body_stats": {
+        "weight_kg": null,
+        "note": ""
+      },
+      "protein_g": null
     }
   ],
   "weight_entries": [
