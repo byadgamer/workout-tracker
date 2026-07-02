@@ -828,6 +828,167 @@
         "note": ""
       },
       "protein_g": null
+    },
+    {
+      "date": "2026-07-01",
+      "session_type": "Pull",
+      "rating": null,
+      "exercises": [
+        {
+          "name": "Pull-Up",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 5
+            }
+          ],
+          "notes": "Warm-up"
+        },
+        {
+          "name": "Rack Pull",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 27.5,
+              "reps": 8
+            },
+            {
+              "weight": 30,
+              "reps": 8
+            },
+            {
+              "weight": 32.5,
+              "reps": 8
+            }
+          ],
+          "notes": "Weight listed is per side; last set was tough"
+        },
+        {
+          "name": "Underhand-Grip Lat Pulldown",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 6,
+              "reps": 12
+            },
+            {
+              "weight": 7,
+              "reps": 12
+            },
+            {
+              "weight": 8,
+              "reps": 12
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Seated Cable Row (Normal Grip)",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 6,
+              "reps": 12
+            },
+            {
+              "weight": 6,
+              "reps": 12
+            },
+            {
+              "weight": 7,
+              "reps": 12
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Wide-Elbow Lat Pulldown (Upper Back Variation)",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 4,
+              "reps": 12
+            },
+            {
+              "weight": 5,
+              "reps": 12
+            },
+            {
+              "weight": 6,
+              "reps": 12
+            }
+          ],
+          "notes": "New variation; felt traps more than upper back"
+        },
+        {
+          "name": "Standing Cable Pulldown",
+          "muscle_group": "Back",
+          "sets": [
+            {
+              "weight": 6,
+              "reps": 8
+            },
+            {
+              "weight": 7,
+              "reps": 8
+            },
+            {
+              "weight": 7,
+              "reps": 8
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Single-Arm Cable Curl",
+          "muscle_group": "Biceps",
+          "sets": [
+            {
+              "weight": 2,
+              "reps": 8
+            },
+            {
+              "weight": 3,
+              "reps": 8
+            },
+            {
+              "weight": 3,
+              "reps": 8
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Rear Delt Fly",
+          "muscle_group": "Shoulders",
+          "sets": [
+            {
+              "weight": 7,
+              "reps": 8
+            },
+            {
+              "weight": 7,
+              "reps": 8
+            },
+            {
+              "weight": 7,
+              "reps": 8
+            }
+          ],
+          "notes": ""
+        }
+      ],
+      "cardio": [],
+      "session_notes": "Good pull session with progression on rack pulls. New upper-back variation did not provide the intended muscle activation and mainly hit the traps.",
+      "reminders": [
+        "Experiment with elbow path and scapular movement on the upper-back pulldown variation next session."
+      ],
+      "body_stats": {
+        "weight_kg": null,
+        "note": ""
+      },
+      "protein_g": null
     }
   ],
   "weight_entries": [
