@@ -989,6 +989,89 @@
         "note": ""
       },
       "protein_g": null
+    },
+    {
+      "date": "2026-07-11",
+      "session_type": "Legs",
+      "rating": null,
+      "exercises": [
+        {
+          "name": "Leg Extension",
+          "muscle_group": "Legs",
+          "sets": [
+            {
+              "weight": 10,
+              "reps": 20
+            },
+            {
+              "weight": 12,
+              "reps": 20
+            },
+            {
+              "weight": 14,
+              "reps": 15
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Dumbbell Squat",
+          "muscle_group": "Legs",
+          "sets": [
+            {
+              "weight": 20,
+              "reps": 12
+            },
+            {
+              "weight": 20,
+              "reps": 12
+            },
+            {
+              "weight": 20,
+              "reps": 12
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Leg Curl",
+          "muscle_group": "Legs",
+          "sets": [
+            {
+              "weight": 9,
+              "reps": 15
+            },
+            {
+              "weight": 10,
+              "reps": 15
+            },
+            {
+              "weight": 11,
+              "reps": 12
+            }
+          ],
+          "notes": ""
+        },
+        {
+          "name": "Plank",
+          "muscle_group": "Core",
+          "sets": [
+            {
+              "weight": 0,
+              "reps": 1
+            }
+          ],
+          "notes": "Held for 1 minute 30 seconds; new max for today"
+        }
+      ],
+      "cardio": [],
+      "session_notes": "First leg workout after a long break. Completed three lower-body exercises and finished with a 1 minute 30 second plank.",
+      "reminders": [],
+      "body_stats": {
+        "weight_kg": null,
+        "note": ""
+      },
+      "protein_g": null
     }
   ],
   "weight_entries": [
